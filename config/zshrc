@@ -1,0 +1,26 @@
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="kardan"
+
+plugins=(git zsh-autosuggestions)
+
+source "$ZSH/oh-my-zsh.sh"
+
+# ── PATH ───────────────────────────────────────────────────────────────────────
+# System tools (go, cargo, bun, nvim) are already in PATH via Dockerfile ENV.
+# These two add user-installed binaries from interactive dev sessions.
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# ── Go ─────────────────────────────────────────────────────────────────────────
+export GOPATH="$HOME/go"
+
+# ── Rust ───────────────────────────────────────────────────────────────────────
+export RUSTUP_HOME=/usr/local/rustup
+export CARGO_HOME=/usr/local/cargo
+
+# ── Zoxide (smart cd) ──────────────────────────────────────────────────────────
+eval "$(zoxide init zsh)"
+
+# ── Syntax highlighting (must be last) ────────────────────────────────────────
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
