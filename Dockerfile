@@ -7,6 +7,7 @@ ARG ZOXIDE_VERSION=0.9.9
 ARG JUST_VERSION=1.49.0
 ARG GRPCURL_VERSION=1.9.3
 ARG USQL_VERSION=0.21.4
+ARG TASK_VERSION=3.49.1
 # Automatically set by BuildKit; declare here to make it available in RUN steps.
 ARG TARGETARCH
 
@@ -107,6 +108,16 @@ RUN case "$TARGETARCH" in \
     && curl -fsSL \
       "https://github.com/casey/just/releases/download/${JUST_VERSION}/just-${JUST_VERSION}-${JUST_ARCH}.tar.gz" \
     | tar -xzf - -C /usr/local/bin just
+
+# ── Task (go-task — Taskfile.yml runner) ─────────────────────────────────────
+RUN case "$TARGETARCH" in \
+      amd64) TASK_GO_ARCH=amd64 ;; \
+      arm64) TASK_GO_ARCH=arm64 ;; \
+      *) echo "Unsupported arch: $TARGETARCH" && exit 1 ;; \
+    esac \
+    && curl -fsSL \
+      "https://github.com/go-task/task/releases/download/v${TASK_VERSION}/task_linux_${TASK_GO_ARCH}.tar.gz" \
+    | tar -xzf - -C /usr/local/bin task
 
 # ── grpcurl (gRPC CLI) ─────────────────────────────────────────────────────────
 RUN case "$TARGETARCH" in \

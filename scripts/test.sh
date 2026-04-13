@@ -42,6 +42,7 @@ check "tmux"     tmux -V
 
 # CLI utilities
 check "just"     just --version
+check "task"     task --version
 check "grpcurl"  grpcurl --version
 check "wget"     wget --version
 check "http"     http --version
